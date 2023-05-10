@@ -11,7 +11,8 @@ namespace prg2 {
     //o tipo VetorDinamico
     struct VetorDinamico {
         // Como Definir a area de memória de armazenamento ???
-        // int mem[MinSize];
+        int * mem;
+        
         uint32_t len; // quantos dados estão armazenados
         uint32_t capacidade; // qual a capacidade
     };

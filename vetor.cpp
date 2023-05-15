@@ -17,9 +17,37 @@ namespace prg2 {
     v.len = 0;
     v.capacidade = 0;
   }
+
+  void vetor_expande (VetorDinamico &v) {
+    auto ptr = new int[capacidade + MinSize];
+    for (int i = 0; i<= v.len; i++) {
+        ptr[i] = v.mem[i];
+    }
+    delete[] v.mem;
+    v.mem = ptr;
+    v.capacidade += MinSize;
+  }
   
   void vetor_anexa(VetorDinamico &v, int valor) {
-    v.
+    if (v.len == v.capacidade) vetor_expande(v);
+    v.mem[v.len] = valor;
+    v.len++;
+  }
+
+  void vetor_insere(VetorDinamico &v, int valor) {
+     vetor_insere(v, 0,valor);
+  }
+
+  void vetor_insere(VetorDinamico &v, int pos, int valor) {
+      if (pos > v.len) {
+          throw std::invalid_argument("pos invalida");
+      }
+      if (v.len == v.capacidade) vetor_expande(v);
+      for (int j=v.len; j>0; j--) {
+          v.mem[j] = v.mem[j-1];
+      }
+      v.mem[0] = valor;
+      v.len++;
   }
   
   int &vetor_frente(VetorDinamico &v) {

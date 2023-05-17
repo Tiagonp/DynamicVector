@@ -15,6 +15,7 @@ namespace prg2 {
         
         uint32_t len; // quantos dados estão armazenados
         uint32_t capacidade; // qual a capacidade
+        uint32_t inicio, fim;
     };
 
     // operações do VetorDinamico
@@ -37,7 +38,8 @@ namespace prg2 {
     // remove um dado da posição pos do vetor
     // se pos > tamanho - 1, dispara exceção
     void vetor_remove(VetorDinamico & v, int pos);
-
+    void vetor_remove_fim(VetorDinamico &v);
+    void vetor_remove_inicio(VetorDinamico &v);
     // obtem o tamanho do vetor
     int vetor_tamanho(const VetorDinamico & v);
 
@@ -55,7 +57,7 @@ namespace prg2 {
 
     // expande a capacidade do vetor
     // a nova capacidade será >= capacidade solicitada
-    void vetor_expande(VetorDinamico & v, int capacidade);
+    void vetor_expande(VetorDinamico & v);
 
 
 }

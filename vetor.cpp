@@ -1,4 +1,6 @@
 #include "vetor.h"
+#include <stdexcept>
+
 
 namespace prg2 {
 
@@ -7,6 +9,8 @@ namespace prg2 {
     v.len = 0;
     v.capacidade = MinSize;
     v.mem = new int[MinSize];
+    v.inicio = 0;
+    v.fim = 0;
     
     return v;
   }
@@ -30,7 +34,11 @@ namespace prg2 {
   
   void vetor_anexa(VetorDinamico &v, int valor) {
     if (v.len == v.capacidade) vetor_expande(v);
-    v.mem[v.len] = valor;
+    v.mem[v.fim] = valor;
+    v.fim++;
+    if (v.fim == v.capacidade) {
+        v.fim = 0;
+    }
     v.len++;
   }
 
@@ -54,7 +62,7 @@ namespace prg2 {
     if (v.len == 0) {
       throw std::invalid_argument("Vetor vazio");
     }
-    return v.mem[0];
+    return v.mem[v.inicio];
   }
   
   int &vetor_atras(VetorDinamico &v) {
@@ -66,9 +74,42 @@ namespace prg2 {
   
   int &vetor_obtem (VetorDinamico &v, int pos) {
   
-    
+    if (v.len <= pos) {
+        throw std::invalid_argument("posição inválida");
+    }
     return v.mem[pos];
   }
+
+  void vetor_remove_inicio(VetorDinamico &v) {
+      vetor_remove(v,0);
+  }
+
+  void vetor_remove(VetorDinamico &v, int pos) {
+
+      if (v.len == 0) {
+          throw std::invalid_argument("pos inválida");
+      }
+
+      for (int j = pos+1; j < v.len; j++) {
+          v.mem[j - 1] = v.mem[j];
+      }
+      v.len--;
+  }
+
+  void vetor_remove_fim(VetorDinamico &v) {
+
+      if (v.len == 0) {
+          throw std::invalid_argument("vetor vazio");
+      }
+      if (v.fim > 0) {
+          v.fim--;
+      } else {
+          v.fim = v.len -1;
+      }
+      v.len--;
+  }
   
-  
+  void vetor_remove(VetorDinamico &v) {
+
+  }
 }
